@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anoohya OS 25.0</title>
+    <style>
+      /* CSS Reset & Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        background-color: #000000;
+        color: #f5f5f7;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Top Sticky Banner - Highlighted */
+      .top-banner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(41, 151, 255, 0.15);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: #f5f5f7;
+        text-align: center;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(41, 151, 255, 0.3);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .top-banner-btn {
+        background: #f5f5f7;
+        color: #000;
+        text-decoration: none;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+
+      .top-banner-btn:hover {
+        transform: scale(1.05);
+        background: #fff;
+      }
+
+      /* Typography */
+      h1,
+      h2,
+      h3 {
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        color: #86868b;
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #ff8a00, #e52e71, #9c27b0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline-block;
+      }
+
+      /* Layout & Sections */
+      section {
+        padding: 100px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate {
+        animation: fadeInUp 1s ease-out forwards;
+      }
+      .delay-1 {
+        animation-delay: 0.3s;
+        opacity: 0;
+      }
+      .delay-2 {
+        animation-delay: 0.8s;
+        opacity: 0;
+      }
+      .delay-3 {
+        animation-delay: 1.3s;
+        opacity: 0;
+      }
+      .delay-4 {
+        animation-delay: 1.8s;
+        opacity: 0;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 120px 20px 80px;
+        background: radial-gradient(circle at center, #1a1a24 0%, #000000 70%);
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 8vw, 6rem);
+        margin-bottom: 10px;
+        text-align: center;
+        line-height: 1.2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Logo and Title Grouping */
+      .title-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .title-logo {
+        height: 1em; /* Scales perfectly with the H1 font size */
+        width: auto;
+        object-fit: contain;
+        border-radius: 12px; /* Optional: smooths the edges of a square logo */
+      }
+
+      .hero h2 {
+        font-size: clamp(1.2rem, 5vw, 2.5rem);
+        color: #f5f5f7;
+        margin-bottom: 50px;
+        text-align: center;
+        font-weight: 400;
+      }
+
+      /* Product Image Reveal */
+      .product-reveal {
+        margin-bottom: 60px;
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .product-img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 32px;
+        box-shadow: 0 40px 100px -20px rgba(41, 151, 255, 0.2),
+          0 20px 40px -15px rgba(0, 0, 0, 0.7);
+      }
+
+      .hero p {
+        font-size: clamp(1.1rem, 3vw, 1.8rem);
+        max-width: 800px;
+        text-align: center;
+        margin: 0 auto;
+      }
+
+      /* About Section */
+      .about h2 {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        margin-bottom: 30px;
+      }
+      .about p {
+        font-size: clamp(1.1rem, 4vw, 1.5rem);
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* Features Section */
+      .features {
+        padding-top: 60px;
+      }
+      .features h2 {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        margin-bottom: 40px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: #151516;
+        border-radius: 24px;
+        padding: 30px 20px;
+        text-align: left;
+        transition: transform 0.3s ease, background 0.3s ease;
+        border: 1px solid #333;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        background: #1c1c1e;
+        border-color: #555;
+      }
+
+      .card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        display: block;
+      }
+      .card h3 {
+        font-size: 1.5rem;
+        color: #f5f5f7;
+        margin-bottom: 10px;
+      }
+      .card p {
+        font-size: 1rem;
+      }
+
+      /* Updates Section */
+      .updates {
+        background: linear-gradient(180deg, #000000 0%, #0a0a0c 100%);
+        border-top: 1px solid #333;
+      }
+
+      .updates h2 {
+        font-size: clamp(2rem, 6vw, 4rem);
+        margin-bottom: 40px;
+      }
+      .update-list {
+        list-style: none;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: left;
+        padding: 0 10px;
+      }
+
+      .update-list li {
+        font-size: clamp(1.1rem, 4vw, 1.5rem);
+        color: #f5f5f7;
+        padding: 20px 0;
+        border-bottom: 1px solid #333;
+        display: flex;
+        align-items: center;
+      }
+
+      .update-list li::before {
+        content: "✨";
+        margin-right: 15px;
+        font-size: 1.2rem;
+      }
+
+      .update-list li:last-child {
+        border-bottom: none;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 60px 20px;
+        background-color: #000;
+        border-top: 1px solid #333;
+      }
+
+      footer h3 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        margin-bottom: 10px;
+      }
+      footer p {
+        font-size: 1rem;
+        margin-bottom: 5px;
+      }
+
+      .birthday-message-box {
+        margin-top: 30px;
+        font-size: clamp(1.2rem, 4vw, 1.5rem);
+        font-weight: bold;
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* Launch Party Overlay */
+      .party-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: radial-gradient(circle at center, #1a1a24 0%, #000000 100%);
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+      }
+
+      .party-overlay:target {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        font-size: 3rem;
+        color: #86868b;
+        text-decoration: none;
+        line-height: 1;
+        transition: color 0.3s ease;
+        z-index: 2010;
+      }
+
+      .close-btn:hover {
+        color: #fff;
+      }
+
+      .party-content {
+        text-align: center;
+        padding: 40px 20px;
+        width: 90%;
+        max-width: 500px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      }
+
+      .party-content h2 {
+        font-size: clamp(2rem, 8vw, 3.5rem);
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+
+      .party-detail {
+        font-size: clamp(1.1rem, 5vw, 1.8rem);
+        color: #f5f5f7;
+        margin: 12px 0;
+        font-weight: 500;
+        word-wrap: break-word;
+      }
+
+      .dress-code {
+        color: #86868b;
+        font-size: clamp(1rem, 4vw, 1.4rem);
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .accent-color {
+        color: #2997ff;
+      }
+
+      /* Mobile Adjustments */
+      @media (max-width: 768px) {
+        .hero {
+          padding-top: 100px;
+          padding-bottom: 50px;
+        }
+        .product-reveal {
+          margin-bottom: 40px;
+          width: 85%;
+        }
+        .product-img {
+          border-radius: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-banner">
+      <span>Be the first to experience the new release.</span>
+      <a href="#launch-party" class="top-banner-btn">Launch Party RSVP</a>
+    </div>
+
+    <header class="hero">
+      <h1 class="gradient-text animate">
+        <span>Introducing</span>
+        <span class="title-group">
+          <img src="logo.png" alt="Logo" class="title-logo" />
+          Anoohya OS 25.0
+        </span>
+      </h1>
+      <h2 class="animate delay-1">The most advanced version yet.</h2>
+
+      <div class="product-reveal animate delay-2">
+        <img
+          src="ab-bd.png"
+          alt="Anoohya OS 25.0 Pixelated Reveal"
+          class="product-img"
+        />
+      </div>
+
+      <p class="animate delay-3">
+        25 years of innovation, kindness, and unstoppable energy.
+      </p>
+    </header>
+
+    <section class="about animate delay-4">
+      <h2>Built for greatness.</h2>
+      <p>
+        Anoohya OS has been evolving continuously for 25 incredible years.
+        Engineered from the ground up to handle life's biggest challenges with
+        grace, this operating system just keeps getting better. Sleeker,
+        smarter, and infinitely more fun.
+      </p>
+    </section>
+
+    <section class="features">
+      <h2 class="gradient-text">Core Tech Specs</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="card-icon">🏸</span>
+          <h3>Pro Badminton Player</h3>
+          <p>
+            Equipped with lightning-fast reflexes and an unstoppable smash
+            power. Dominates the court with precision engineering.
+          </p>
+        </div>
+        <div class="card">
+          <span class="card-icon">❤️</span>
+          <h3>Ultimate Support System</h3>
+          <p>
+            Always online. Features 100% uptime when friends and family need a
+            shoulder to lean on or a voice of reason.
+          </p>
+        </div>
+        <div class="card">
+          <span class="card-icon">💻</span>
+          <h3>Engineer Mode</h3>
+          <p>
+            Logical thinking, complex problem solving, and brilliant innovation
+            hardwired directly into the mainframe.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="updates">
+      <h2>What’s New in Version 25.0</h2>
+      <ul class="update-list">
+        <li>Improved wisdom engine with real-time life processing</li>
+        <li>Higher happiness bandwidth for maximum joy</li>
+        <li>Faster sarcasm processor (now with zero latency)</li>
+        <li>Stronger, deeper friendship networking protocols</li>
+      </ul>
+    </section>
+
+    <footer>
+      <h3>Officially launched: Anoohya 25.0</h3>
+      <p>Designed with love. Assembled over 25 amazing years.</p>
+      <div class="birthday-message-box">
+        <span class="gradient-text">Happy Birthday Anoohya! 🎉</span>
+      </div>
+    </footer>
+
+    <div id="launch-party" class="party-overlay">
+      <a href="#" class="close-btn">&times;</a>
+      <div class="party-content">
+        <h2 class="gradient-text">You're Invited.</h2>
+        <div class="party-detail">📍 Helen’s Place Marathahalli</div>
+        <div class="party-detail accent-color">🗓️ Friday, March 13th</div>
+        <div class="party-detail">⏰ 8:30 PM</div>
+        <div class="party-detail dress-code">
+          🎨 Dress Code: Your best Pastels
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
